@@ -6,7 +6,7 @@ const { Title } = Typography;
 export default function Head() {
   return (
     <div>
-      <Title type="danger">Trading</Title>
+      <Title type="danger">whatever</Title>
     </div>
   );
 }

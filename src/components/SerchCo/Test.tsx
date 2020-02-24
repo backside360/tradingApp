@@ -1,19 +1,11 @@
-import React, { useState, useContext } from 'react';
-import { useStores } from '../../entities/quotes/stores';
-import {
-  fetchCo,
-  fetchQuote
-} from '../../entities/quotes/Quotes/fetchCompanies';
-import { Card, AutoComplete, Input, Row, Col, Icon } from 'antd';
-import { ISearch } from '../../entities/quotes/Quotes/model';
-import { toJS } from 'mobx';
-import { Spin } from 'antd';
+import React, { useState } from 'react';
+import { AutoComplete, Input, Row, Col } from 'antd';
+import { ISearch } from '../../entities/quotes/Quotes/browser';
 import { observer } from 'mobx-react';
-import { Animated } from 'react-animated-css';
 import './style.css';
 import 'antd/dist/antd.css';
-import { ApiContext } from '../../contexts';
-import MontlyCard from '../MothlyCard/index';
+import PriceCard from '../PriceCard/index';
+import { useInjection } from '../../service/Injection';
 
 const { TextArea } = Input;
 const { Option } = AutoComplete;
@@ -21,8 +13,10 @@ const { Option } = AutoComplete;
 const Test: React.FC = observer(() => {
   const [loading, setLoading] = useState<boolean>(false);
   const [titleAuto, setTitleAuto] = useState();
-  const { QuoteStore } = useStores();
-  const api = useContext(ApiContext);
+  const {
+    api,
+    store: { QuoteStore }
+  } = useInjection();
 
   const fetchCompany = async (name = '') => {
     //@ts-ignore
@@ -45,10 +39,10 @@ const Test: React.FC = observer(() => {
 
   const onSelect = async (value: any) => {
     setLoading(true);
-    await QuoteStore.setQuoteStore(value);
+    api.quotes.getQuote(value).then(res => QuoteStore.setQuoteStore(res));
+
     await QuoteStore.setPreviousDayPrice(value);
     await QuoteStore.setMonthlyPrice(value);
-    console.log(toJS(QuoteStore.previousDayStore));
     setLoading(false);
   };
 
@@ -82,64 +76,7 @@ const Test: React.FC = observer(() => {
 
       <Row type="flex" justify="center">
         <Col className="card">
-          <Animated
-            animationIn="bounceInUp"
-            animationOut="zoomOutDown"
-            animationInDuration={1000}
-            animationOutDuration={1000}
-            isVisible={true}
-          >
-            <Card
-              //@ts-ignore
-              title={QuoteStore.quoteStore.companyName}
-              style={{ width: '300px', height: '100%', borderRadius: '10px' }}
-            >
-              {loading ? (
-                <Spin></Spin>
-              ) : (
-                <>
-                  <p>
-                    Latest Price: {QuoteStore.quoteStore.latestPrice}
-                    {Object.keys(toJS(QuoteStore.quoteStore)).length ===
-                    0 ? null : QuoteStore.getPreviousDay ? (
-                      <Animated
-                        animationIn="bounce"
-                        animationOut="zoomOutDown"
-                        animationInDuration={3000}
-                        animationOutDuration={3000}
-                        isVisible={true}
-                      >
-                        <Icon
-                          type="down-circle"
-                          theme="twoTone"
-                          twoToneColor="red"
-                          style={{ fontSize: '20px', paddingLeft: '150px' }}
-                        />
-                      </Animated>
-                    ) : (
-                      <Animated
-                        animationIn="bounce"
-                        animationOut="zoomOutDown"
-                        animationInDuration={3000}
-                        animationOutDuration={3000}
-                        isVisible={true}
-                      >
-                        <Icon
-                          type="up-circle"
-                          theme="twoTone"
-                          twoToneColor="green"
-                          style={{ fontSize: '20px', paddingLeft: '150px' }}
-                        />
-                      </Animated>
-                    )}
-                  </p>
-
-                  <p> Exchange: {QuoteStore.quoteStore.primaryExchange}</p>
-                </>
-              )}
-            </Card>
-            <MontlyCard />
-          </Animated>
+          <PriceCard loading={loading} />
         </Col>
       </Row>
     </div>

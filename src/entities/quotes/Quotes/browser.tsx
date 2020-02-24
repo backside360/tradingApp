@@ -3,7 +3,6 @@ import {
   fetchCo,
   fetchQuote,
   fetchPreviousDay,
-  fetchPrice,
   fetchMothlyQuote
 } from './fetchCompanies';
 
@@ -90,22 +89,24 @@ export default class QuoteStore {
   @observable previousDayStore: IPreviousPrice = {};
   @observable monthlyPriceStore = {};
 
-  setQuoteStore = async (data: string) => {
-    this.quoteStore = await fetchQuote(data);
-  };
+  setQuoteStore = async (data: IQuote) => (this.quoteStore = data);
+  //** Очищается стор и карточка пропадает */
   resetQuoteStore = () => {
     this.quoteStore = {};
   };
 
+  //** Запрос данных о предыдущем дне торгов */
   setPreviousDayPrice = async (data: string) => {
     this.previousDayStore = await fetchPreviousDay(data);
   };
 
+  //** Запрос данных примерно за полгода торгов, используется для календаря  */
   setMonthlyPrice = async (data: string) => {
     const monthlyData = await fetchMothlyQuote(data);
     this.monthlyPriceStore = monthlyData['Time Series (Daily)'];
   };
 
+  //** Сравнение текущей цены с предыдущим днём  */
   @computed get getPreviousDay() {
     if (this.quoteStore.latestPrice) {
       //@ts-ignore
@@ -116,8 +117,4 @@ export default class QuoteStore {
 
     return null;
   }
-
-  // getPrice = async (name: string) => {
-  //   this.previousDayStore = await fetchPrice(name);
-  // };
 }

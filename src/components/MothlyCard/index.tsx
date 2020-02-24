@@ -1,31 +1,24 @@
 import React, { useState } from 'react';
-import { useStores } from '../../entities/quotes/stores';
-import {
-  fetchCo,
-  fetchQuote
-} from '../../entities/quotes/Quotes/fetchCompanies';
+
 import { Card, AutoComplete, Input, Row, Col, Icon } from 'antd';
-import { ISearch } from '../../entities/quotes/Quotes/model';
 import { toJS } from 'mobx';
-import { Spin } from 'antd';
 import { observer } from 'mobx-react';
 import { Animated } from 'react-animated-css';
 
 import './style.css';
 import 'antd/dist/antd.css';
-import { ApiContext } from '../../contexts';
 import { DatePicker } from 'antd';
 import moment from 'moment';
+import { useInjection } from '../../service/Injection';
 
 const { MonthPicker, RangePicker } = DatePicker;
 
 const dateFormat = 'YYYY-MM-DD';
 
-const { TextArea } = Input;
-const { Option } = AutoComplete;
-
 const MontlyCard: React.FC = observer(() => {
-  const { QuoteStore } = useStores();
+  const {
+    store: { QuoteStore }
+  } = useInjection();
   const [date, setDate] = useState<string>();
 
   const disabled = (current: any) => {
@@ -48,15 +41,17 @@ const MontlyCard: React.FC = observer(() => {
     <div>
       {Object.keys(toJS(QuoteStore.quoteStore)).length !== 0 ? (
         <Card
-          title="Enter date you want"
+          title="А сколько там раньше стоило?"
           extra={
             <DatePicker
               format={dateFormat}
               onChange={(value, time) => setDate(time)}
               disabledDate={disabled}
+              placeholder="Выбирай дату"
             ></DatePicker>
           }
-          style={{ width: 500 }}
+          style={{ width: '500px', height: '100%', borderRadius: '10px' }}
+          hoverable
         >
           {date !== undefined && ['2. high'] !== undefined ? (
             //@ts-ignore
