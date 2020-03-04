@@ -53,7 +53,7 @@ const MontlyCard: React.FC = observer(() => {
           style={{ width: '500px', height: '100%', borderRadius: '10px' }}
           hoverable
         >
-          {date !== undefined && ['2. high'] !== undefined ? (
+          {date && ['2. high']  ? (
             //@ts-ignore
             <p>{QuoteStore.monthlyPriceStore[date]['2. high']}</p>
           ) : null}
