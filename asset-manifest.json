@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/tradingApp/static/css/main.a6ede9a2.chunk.css",
-    "main.js": "/tradingApp/static/js/main.a784301a.chunk.js",
-    "main.js.map": "/tradingApp/static/js/main.a784301a.chunk.js.map",
+    "main.js": "/tradingApp/static/js/main.204024ac.chunk.js",
+    "main.js.map": "/tradingApp/static/js/main.204024ac.chunk.js.map",
     "runtime-main.js": "/tradingApp/static/js/runtime-main.92a924dc.js",
     "runtime-main.js.map": "/tradingApp/static/js/runtime-main.92a924dc.js.map",
     "static/css/2.bea6f0b1.chunk.css": "/tradingApp/static/css/2.bea6f0b1.chunk.css",
     "static/js/2.c0360372.chunk.js": "/tradingApp/static/js/2.c0360372.chunk.js",
     "static/js/2.c0360372.chunk.js.map": "/tradingApp/static/js/2.c0360372.chunk.js.map",
     "index.html": "/tradingApp/index.html",
-    "precache-manifest.b4d7c81f211b9bfe14ab7771cd743062.js": "/tradingApp/precache-manifest.b4d7c81f211b9bfe14ab7771cd743062.js",
+    "precache-manifest.154fa463e9ffc3311807234b0418a2c7.js": "/tradingApp/precache-manifest.154fa463e9ffc3311807234b0418a2c7.js",
     "service-worker.js": "/tradingApp/service-worker.js",
     "static/css/2.bea6f0b1.chunk.css.map": "/tradingApp/static/css/2.bea6f0b1.chunk.css.map",
     "static/css/main.a6ede9a2.chunk.css.map": "/tradingApp/static/css/main.a6ede9a2.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.bea6f0b1.chunk.css",
     "static/js/2.c0360372.chunk.js",
     "static/css/main.a6ede9a2.chunk.css",
-    "static/js/main.a784301a.chunk.js"
+    "static/js/main.204024ac.chunk.js"
   ]
 }
