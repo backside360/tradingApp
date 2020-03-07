@@ -11,7 +11,7 @@ export const fetchQuote = async (name: string): Promise<IQuote> => {
 };
 
 //@ts-ignore
-export const fetchMothlyQuote = async (name: string): Promise => {
+export const fetchMothlyQuote = async (name: string): Promise  => {
   return await api.quotes.getMonthlyQuote(name);
 };
 

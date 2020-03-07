@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Card, AutoComplete, Input, Row, Col, Icon } from 'antd';
+import { Card, AutoComplete, Input, Row, Col, Icon, Button } from 'antd';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import { Animated } from 'react-animated-css';
@@ -15,13 +15,17 @@ const { MonthPicker, RangePicker } = DatePicker;
 
 const dateFormat = 'YYYY-MM-DD';
 
-const MontlyCard: React.FC = observer(() => {
+const MontlyCard = observer(props => {
+  const { handleToggle } = props;
   const {
     store: { QuoteStore }
   } = useInjection();
   const [date, setDate] = useState<string>();
 
+  /** Что из себя представляет Moment? */
   const disabled = (current: any) => {
+    console.log(current);
+
     const dates = Object.keys(QuoteStore.monthlyPriceStore);
     if (
       current &&
@@ -38,7 +42,7 @@ const MontlyCard: React.FC = observer(() => {
   };
 
   return (
-    <div>
+    <div className="slide_right">
       {Object.keys(toJS(QuoteStore.quoteStore)).length !== 0 ? (
         <Card
           title="А сколько там раньше стоило?"
@@ -53,10 +57,14 @@ const MontlyCard: React.FC = observer(() => {
           style={{ width: '500px', height: '100%', borderRadius: '10px' }}
           hoverable
         >
-          {date !== undefined && ['2. high'] !== undefined ? (
+          {date && ['2. high'] ? (
+            /** что здесь творится, помогите */
+
             //@ts-ignore
+
             <p>{QuoteStore.monthlyPriceStore[date]['2. high']}</p>
           ) : null}
+          <Button onClick={handleToggle}>Go</Button>
         </Card>
       ) : null}
     </div>

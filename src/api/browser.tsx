@@ -1,5 +1,4 @@
 import axios from 'axios';
-import React from 'react';
 import { TAPI } from './types';
 
 const tokenIex = 'sk_23710eca08ee41f89b91b025174949ad';

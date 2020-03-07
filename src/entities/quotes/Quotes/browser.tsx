@@ -83,6 +83,14 @@ export interface IPreviousPrice {
   symbol?: string;
 }
 
+export interface IMonthlyPrice {
+  '1. open'?: string;
+  '2. high'?: string;
+  '3. low'?: string;
+  '4. close'?: string;
+  '5. volume'?: string;
+}
+
 export default class QuoteStore {
   @observable quoteSearch: ISearch[] = [];
   @observable quoteStore: IQuote = {};
@@ -90,27 +98,27 @@ export default class QuoteStore {
   @observable monthlyPriceStore = {};
 
   setQuoteStore = async (data: IQuote) => (this.quoteStore = data);
-  //** Очищается стор и карточка пропадает */
+  /** Очищается стор и карточка пропадает */
   resetQuoteStore = () => {
     this.quoteStore = {};
   };
 
-  //** Запрос данных о предыдущем дне торгов */
+  /** Запрос данных о предыдущем дне торгов */
   setPreviousDayPrice = async (data: string) => {
     this.previousDayStore = await fetchPreviousDay(data);
   };
 
-  //** Запрос данных примерно за полгода торгов, используется для календаря  */
+  /** Запрос данных примерно за полгода торгов, используется для календаря  */
   setMonthlyPrice = async (data: string) => {
     const monthlyData = await fetchMothlyQuote(data);
     this.monthlyPriceStore = monthlyData['Time Series (Daily)'];
   };
 
-  //** Сравнение текущей цены с предыдущим днём  */
+  /** Сравнение текущей цены с предыдущим днём  */
   @computed get getPreviousDay() {
     if (this.quoteStore.latestPrice) {
-      //@ts-ignore
-      return this.previousDayStore.open > this.quoteStore.latestPrice
+      /**Non-null assertion operator - почитать */
+      return this.previousDayStore.open! > this.quoteStore.latestPrice
         ? true
         : false;
     }

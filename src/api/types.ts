@@ -90,6 +90,19 @@ export interface ISearchResponse {
   bestMatches?: Array<IMatch>;
 }
 
+/** Добавить этот интерфейс к getMothlyQuote */
+export interface ITimeSeriesDaily {
+  'Time Series (Daily)': {
+    '2020-03-05': {
+      '1. open': string;
+      '2. high': string;
+      '3. low': string;
+      '4. close': string;
+      '5. volume': string;
+    };
+  };
+}
+
 export type TAPI = {
   quotes: {
     getQuote: (name: string) => Promise<IQuoteResponse>;

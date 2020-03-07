@@ -8,6 +8,7 @@ import { Animated } from 'react-animated-css';
 import './styles.css';
 import 'antd/dist/antd.css';
 import MontlyCard from '../MothlyCard/index';
+import TestForm from '../TestA/index';
 import { useInjection } from '../../service/Injection';
 
 const { TextArea } = Input;
@@ -17,10 +18,15 @@ const { Meta } = Card;
 
 const PriceCard = observer(props => {
   const [visible, setVisible] = useState<boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(false);
   const {
     store: { QuoteStore }
   } = useInjection();
   const { loading } = props;
+
+  const handleToggle = () => {
+    setToggle(!toggle);
+  };
 
   return (
     <>
@@ -33,7 +39,6 @@ const PriceCard = observer(props => {
           isVisible={true}
         >
           <Card
-            //@ts-ignore
             title={QuoteStore.quoteStore.companyName}
             hoverable
             style={{ width: '300px', height: '100%', borderRadius: '10px' }}
@@ -91,7 +96,11 @@ const PriceCard = observer(props => {
               onCancel={() => setVisible(false)}
               width="600px"
             >
-              <MontlyCard />
+              {!toggle ? (
+                <MontlyCard handleToggle={handleToggle} />
+              ) : (
+                <TestForm handleToggle={handleToggle} />
+              )}
             </Modal>
           </Card>
         </Animated>
