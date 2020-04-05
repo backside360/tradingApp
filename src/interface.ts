@@ -1,11 +1,14 @@
-import { TSetTimeout } from './timers/types';
 import { TAPI } from './api/types';
-import QuoteStore from './entities/quotes/Quotes/browser';
+import { IQuote } from './entities/quotes/types';
+import { Menu } from './entities/menu';
+import { TRouter } from './services/routing/types';
+import { IObservableArray } from 'mobx';
 
 export type TENV = {
   api: TAPI;
-  setTimeout: TSetTimeout;
   store: {
-    QuoteStore: QuoteStore;
+    Quotes: IObservableArray<IQuote>;
+    Menu: Menu;
   };
+  router: TRouter;
 };

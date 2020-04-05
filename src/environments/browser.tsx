@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { EnvironmentContext } from '../contexts';
 import api from '../api/browser';
-import QuoteStore from '../entities/quotes/Quotes/browser';
-import { setTimeout } from '../timers';
+import { router } from '../services/routing/browser';
+import { Quotes } from '../entities/quotes';
+import { Menu } from '../entities/menu';
 import { TENV } from '../interface';
 
 type TProps = {
@@ -11,10 +12,11 @@ type TProps = {
 
 const env: TENV = {
   api,
-  setTimeout,
   store: {
-    QuoteStore: new QuoteStore()
-  }
+    Quotes,
+    Menu: new Menu()
+  },
+  router
 };
 
 const Env: React.FC<TProps> = ({ component: Main }) => {

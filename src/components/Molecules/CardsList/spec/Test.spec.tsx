@@ -9,7 +9,7 @@ import {
 } from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 import Enviorment from '../../../environments/test';
-import Test from '../Test';
+import Test from '../../../containers/index';
 
 let container = null;
 beforeEach(() => {

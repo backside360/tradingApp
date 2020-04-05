@@ -1,29 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import Test from './components/SerchCo/Test';
-import Head from './components/Header/index';
-import Foot from './components/Footer/index';
-import './App.css';
+import React from 'react';
+import QuotesContainer from './containers/QuotesContainer';
+import MenuContainer from './containers/MenuContainer';
+import { MainMenu } from './components/Molecules/MainMenu';
+import { CardsList } from './components/Molecules/CardsList';
+import { MainLayout } from './components/Layouts/Main';
+import { RouterContainer } from './containers/RouterContainer';
 import 'antd/dist/antd.css';
-import { Layout } from 'antd';
 
-const { Header, Footer, Sider, Content } = Layout;
-
-const App: React.FC = () => {
-  return (
-    <div className="main">
-      <Layout>
-        <Header>
-          <Head />
-        </Header>
-        <Content className="content">
-          <Test />
-        </Content>
-        <Footer className="footer">
-          <Foot />
-        </Footer>
-      </Layout>
-    </div>
-  );
-};
+const App: React.FC = () => (
+  <div className="main">
+    <RouterContainer
+      path="/"
+      render={() => (
+        <MainLayout
+          header={() => <MenuContainer component={MainMenu} />}
+          body={() => <QuotesContainer component={CardsList} />}
+        />
+      )}
+    />
+  </div>
+);
 
 export default App;
