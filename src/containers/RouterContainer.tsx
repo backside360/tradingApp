@@ -11,7 +11,12 @@ export const RouterContainer: React.FC<IProps> = ({ path, render }) => {
   const { router } = useInjection();
 
   const state = router.getState();
-  console.log('test');
+
+  const fire = (path: string) => {
+    return state.path !== path ? path : null;
+  };
+
+  console.log(fire(path));
 
   return state.path === path ? <>{render()}</> : null;
 };

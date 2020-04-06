@@ -27,8 +27,11 @@ const MenuContainer: React.FC<IProps> = ({ component: MenuComponent }) => {
       disabled: false,
       role: 'user'
     });
-  }, []);
+  });
 
+  /**
+   * Здесь надо уведомить комоненты об изменении роута
+   */
   const onSelect = React.useCallback(menu => {
     navigate(menu);
   }, []);
