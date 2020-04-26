@@ -7,12 +7,16 @@ export type IProps = {
   name?: string;
   exchange?: string;
   latestPrice?: number;
+  symbol: string;
+  onClick?: (symbol: string) => void;
 };
 
 export const CompanyCard: React.FC<IProps> = ({
   name,
   exchange,
-  latestPrice
+  latestPrice,
+  symbol,
+  onClick,
 }) => (
   <Animated
     animationIn="bounceInUp"
@@ -25,6 +29,7 @@ export const CompanyCard: React.FC<IProps> = ({
       title={name}
       hoverable
       style={{ width: '400px', height: '100%', borderRadius: '10px' }}
+      onClick={() => onClick && onClick(symbol)}
     >
       <Card.Meta description={exchange} />
       <p>Latest Price: {latestPrice}</p>

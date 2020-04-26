@@ -7,15 +7,30 @@ import { MainLayout } from './components/Layouts/Main';
 import { RouterContainer } from './containers/RouterContainer';
 import 'antd/dist/antd.css';
 
+interface IStock {
+  id: string;
+}
+
 const App: React.FC = () => (
   <div className="main">
-    <RouterContainer
-      path="/"
-      render={() => (
-        <MainLayout
-          header={() => <MenuContainer component={MainMenu} />}
-          body={() => <QuotesContainer component={CardsList} />}
-        />
+    <MainLayout
+      header={() => <MenuContainer component={MainMenu} />}
+      body={() => (
+        <>
+          <RouterContainer
+            path="/"
+            render={() => <QuotesContainer component={CardsList} />}
+          />
+          <RouterContainer<IStock>
+            path="/stock/:id"
+            render={({ id }) => <>stock: {id}</>}
+          />
+          // /news // /news/123123
+          <RouterContainer
+            path="/news/:id?"
+            render={({ id }) => <> {id ? `News: ${id}` : `News not found`} </>}
+          />
+        </>
       )}
     />
   </div>

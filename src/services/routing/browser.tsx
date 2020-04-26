@@ -1,14 +1,34 @@
-import { TRouter } from './types';
+import { TRouter, Subscriber } from './types';
 
-/**
- * Надо как-то сравнить текущий path с измененным
- */
+const observers = new Set<Subscriber>();
+
+const getState = () => ({
+  state: window.history.state,
+  path: window.location.pathname,
+});
+
+const notify = () => observers.forEach((callback) => callback(getState()));
+
 export const router: TRouter = {
   navigate(url: string, data?: object) {
     window.history.pushState(data, '', url);
+    notify();
   },
-  getState: () => ({
-    state: window.history.state,
-    path: window.location.pathname
-  })
+  getState,
+  subscribe: (fn) => {
+    observers.add(fn);
+  },
+  back: () => {
+    window.history.back();
+    notify();
+  },
+  forward: () => {
+    window.history.forward();
+    notify();
+  },
+};
+
+window.onpopstate = () => {
+  console.log('changed history');
+  notify();
 };

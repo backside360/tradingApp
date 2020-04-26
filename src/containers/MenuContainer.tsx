@@ -1,7 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { useInjection } from '../services/Injection';
-import { toJS } from 'mobx';
 
 interface IProps {
   component: React.ElementType;
@@ -10,42 +9,43 @@ interface IProps {
 const MenuContainer: React.FC<IProps> = ({ component: MenuComponent }) => {
   const {
     store: { Menu },
-    router: { navigate, getState }
+    router: { navigate, getState },
   } = useInjection();
 
   React.useEffect(() => {
     Menu.addMenuItem({
-      menuId: '/',
+      menuId: 'stock',
       title: 'Акции',
       disabled: false,
-      role: 'user'
+      role: 'user',
+      routerId: '/',
     });
 
     Menu.addMenuItem({
-      menuId: '/news',
+      menuId: 'news',
       title: 'Новости',
       disabled: false,
-      role: 'user'
+      role: 'user',
+      routerId: '/news',
     });
-  });
 
-  /**
-   * Здесь надо уведомить комоненты об изменении роута
-   */
-  const onSelect = React.useCallback(menu => {
-    navigate(menu);
+    Menu.selectMenu('stock');
   }, []);
 
-  const routerState = getState();
-
-  const findedMenu = Object.values(Menu.items).find(
-    menu => menu.menuId === routerState.path
+  const onSelect = React.useCallback(
+    (menuId) => {
+      Menu.selectMenu(menuId);
+      navigate(Menu.items[menuId].routerId);
+    },
+    [Menu, navigate]
   );
+
+  
 
   return (
     <MenuComponent
       items={Menu.items}
-      selectedKey={findedMenu?.menuId}
+      selectedKey={Menu.selectedMenuId}
       onSelect={onSelect}
     />
   );

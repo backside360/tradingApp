@@ -11,17 +11,17 @@ interface IProps {
 export const MainMenu: React.FC<IProps> = ({
   items,
   onSelect,
-  selectedKey
+  selectedKey,
 }) => {
-  const handleClick = React.useCallback(e => onSelect(e.key), [onSelect]);
+  const handleClick = React.useCallback((e) => onSelect(e.key), [onSelect]);
 
   return Object.keys(items).length > 0 ? (
     <Menu mode="horizontal" onClick={handleClick} selectedKeys={[selectedKey]}>
-      <Menu.Item key={items['/'].menuId} disabled={items['/'].disabled}>
-        {items['/'].title}
+      <Menu.Item key={items.stock.menuId} disabled={items.stock.disabled}>
+        {items.stock.title}
       </Menu.Item>
-      <Menu.Item key={items['/news'].menuId} disabled={items['/news'].disabled}>
-        {items['/news'].title}
+      <Menu.Item key={items.news.menuId} disabled={items.news.disabled}>
+        {items.news.title}
       </Menu.Item>
     </Menu>
   ) : null;

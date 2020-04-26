@@ -5,9 +5,10 @@ import { CompanyCard } from '../../Atoms/CompanyCard';
 
 interface IProps {
   quotes: IQuote[];
+  onClick?: (symbol: string) => void;
 }
 
-export const CardsList: React.FC<IProps> = ({ quotes }) => (
+export const CardsList: React.FC<IProps> = ({ quotes, onClick }) => (
   <Row type="flex" justify="space-around">
     {quotes.map((company: IQuote) => (
       <Col className="card" key={company.symbol}>
@@ -15,6 +16,8 @@ export const CardsList: React.FC<IProps> = ({ quotes }) => (
           name={company.name}
           exchange={company.exchange}
           latestPrice={company.latestPrice}
+          symbol={company.symbol}
+          onClick={onClick}
         />
       </Col>
     ))}
