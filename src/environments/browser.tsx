@@ -1,7 +1,7 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { EnvironmentContext } from '../contexts';
 import api from '../api/browser';
-import { router } from '../services/routing/browser';
 import { Quotes } from '../entities/quotes';
 import { Menu } from '../entities/menu';
 import { TENV } from '../interface';
@@ -14,15 +14,16 @@ const env: TENV = {
   api,
   store: {
     Quotes,
-    Menu: new Menu()
+    Menu: new Menu(),
   },
-  router
 };
 
 const Env: React.FC<TProps> = ({ component: Main }) => {
   return (
     <EnvironmentContext.Provider value={env}>
-      <Main />
+      <Router>
+        <Main />
+      </Router>
     </EnvironmentContext.Provider>
   );
 };

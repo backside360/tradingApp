@@ -6,16 +6,16 @@ import { Animated } from 'react-animated-css';
 export type IProps = {
   name?: string;
   exchange?: string;
-  latestPrice?: number;
-  symbol: string;
+  marketCapitalization?: number;
+  ticker: string;
   onClick?: (symbol: string) => void;
 };
 
 export const CompanyCard: React.FC<IProps> = ({
   name,
   exchange,
-  latestPrice,
-  symbol,
+  marketCapitalization,
+  ticker,
   onClick,
 }) => (
   <Animated
@@ -29,10 +29,10 @@ export const CompanyCard: React.FC<IProps> = ({
       title={name}
       hoverable
       style={{ width: '400px', height: '100%', borderRadius: '10px' }}
-      onClick={() => onClick && onClick(symbol)}
+      onClick={() => onClick && onClick(ticker)}
     >
       <Card.Meta description={exchange} />
-      <p>Latest Price: {latestPrice}</p>
+      <p>Market Capitalization: {marketCapitalization}</p>
     </Card>
   </Animated>
 );

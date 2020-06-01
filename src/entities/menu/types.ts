@@ -4,7 +4,7 @@ export interface IMenuItem {
   disabled: boolean;
   role: 'admin' | 'moderator' | 'user';
   menu?: IMenuItem;
-  routerId: string;
+  routerId: string | null;
 }
 
 export interface IMenu {

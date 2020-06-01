@@ -20,8 +20,8 @@ export const MainMenu: React.FC<IProps> = ({
       <Menu.Item key={items.stock.menuId} disabled={items.stock.disabled}>
         {items.stock.title}
       </Menu.Item>
-      <Menu.Item key={items.news.menuId} disabled={items.news.disabled}>
-        {items.news.title}
+      <Menu.Item key={items.novosti.menuId} disabled={items.novosti.disabled}>
+        {items.novosti.title}
       </Menu.Item>
     </Menu>
   ) : null;

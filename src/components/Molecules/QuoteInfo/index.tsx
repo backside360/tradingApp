@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import { CompanyModal } from '../../Atoms/CompanyModal';
+import { QuoteCard } from '../../Atoms/QuoteCard';
 import { IQuote } from '../../../entities/quotes/types';
 
 interface IProps {
@@ -11,5 +11,5 @@ interface IProps {
 
 export const QuoteInfo: React.FC<IProps> = ({ quotes, onClick }) => (
   //@ts-ignore
-  <CompanyModal />
+  <QuoteCard symbol={symbol} />
 );

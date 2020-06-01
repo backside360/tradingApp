@@ -1,4 +1,6 @@
 import React from 'react';
+import { MemoryRouter as Router } from 'react-router-dom';
+
 import { EnvironmentContext } from '../contexts';
 import api from '../api/test';
 import { Quotes } from '../entities/quotes';
@@ -13,14 +15,16 @@ const env: TENV = {
   api,
   store: {
     Quotes,
-    Menu: new Menu()
-  }
+    Menu: new Menu(),
+  },
 };
 
 const Env: React.FC<TProps> = ({ component: Main }) => {
   return (
     <EnvironmentContext.Provider value={env}>
-      <Main />
+      <Router>
+        <Main />
+      </Router>
     </EnvironmentContext.Provider>
   );
 };

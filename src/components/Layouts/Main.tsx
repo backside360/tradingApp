@@ -10,7 +10,7 @@ interface IProps {
 export const MainLayout: React.FC<IProps> = ({
   header: Header,
   body: Body,
-  footer: Footer
+  footer: Footer,
 }) => (
   <div className="main">
     {Header && <Header />}

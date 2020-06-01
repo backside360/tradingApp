@@ -1,16 +1,23 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { useInjection } from '../services/Injection';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
 interface IProps {
   component: React.ElementType;
 }
 
+type IMatch = {
+  menuId?: string;
+};
+
 const MenuContainer: React.FC<IProps> = ({ component: MenuComponent }) => {
   const {
     store: { Menu },
-    router: { navigate, getState },
   } = useInjection();
+
+  const history = useHistory();
+  const match = useRouteMatch<IMatch>('/:menuId');
 
   React.useEffect(() => {
     Menu.addMenuItem({
@@ -18,34 +25,33 @@ const MenuContainer: React.FC<IProps> = ({ component: MenuComponent }) => {
       title: 'Акции',
       disabled: false,
       role: 'user',
-      routerId: '/',
+      routerId: null,
     });
 
     Menu.addMenuItem({
-      menuId: 'news',
+      menuId: 'novosti',
       title: 'Новости',
       disabled: false,
       role: 'user',
-      routerId: '/news',
+      routerId: 'news',
     });
-
-    Menu.selectMenu('stock');
-  }, []);
+  }, []); // eslint-disable-line
 
   const onSelect = React.useCallback(
     (menuId) => {
-      Menu.selectMenu(menuId);
-      navigate(Menu.items[menuId].routerId);
+      history.push(`/${Menu.items[menuId].routerId}`);
     },
-    [Menu, navigate]
+    [Menu, history]
   );
 
-  
+  const selectedMenuId = Object.values(Menu.items).find(
+    (item) => item.routerId === (match?.params?.menuId || null)
+  )?.menuId;
 
   return (
     <MenuComponent
       items={Menu.items}
-      selectedKey={Menu.selectedMenuId}
+      selectedKey={selectedMenuId}
       onSelect={onSelect}
     />
   );

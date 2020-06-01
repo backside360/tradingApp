@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { observer } from 'mobx-react';
 import { useInjection } from '../services/Injection';
 import { mapQuotesFromApiToStore } from '../entities/quotes/mapping';
 import { IQuote } from '../entities/quotes/types';
-
+import { useHistory } from 'react-router-dom';
 
 interface IList {
   quotes: Array<IQuote>;
@@ -14,23 +13,20 @@ interface IProps {
   component: React.ElementType<IList>;
 }
 
-
-const QuotesContainer: React.FC<IProps> = (props) => {
-  const List = props.component;
-
+const QuotesContainer: React.FC<IProps> = ({ component: List }) => {
   const [loading, setLoading] = useState(true);
   const {
     api,
     store: { Quotes },
-    router: { navigate },
   } = useInjection();
+  const history = useHistory();
 
   React.useEffect(() => {
     if (!Quotes.length) {
       Promise.all([
-        api.quotes.getQuote('AAPL'),
-        api.quotes.getQuote('GOOGL'),
-        api.quotes.getQuote('TSLA'),
+        api.company.getProfile('AAPL'),
+        api.company.getProfile('GOOGL'),
+        api.company.getProfile('TSLA'),
       ]).then((companies) => {
         Quotes.push(...mapQuotesFromApiToStore(companies));
         setLoading(false);
@@ -38,13 +34,11 @@ const QuotesContainer: React.FC<IProps> = (props) => {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, []); // eslint-disable-line
 
   const handleClick = React.useCallback(
-    (symbol) => {
-      navigate(`/stock/${symbol}`);
-    },
-    [navigate]
+    (symbol) => history.push(`/stock/${symbol}`),
+    [history]
   );
 
   return loading ? (
@@ -54,4 +48,4 @@ const QuotesContainer: React.FC<IProps> = (props) => {
   );
 };
 
-export default observer(QuotesContainer);
+export default QuotesContainer;

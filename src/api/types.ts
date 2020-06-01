@@ -1,51 +1,54 @@
 export interface IQuoteResponse {
-  symbol?: string;
-  companyName?: string;
-  primaryExchange?: string;
-  calculationPrice?: string;
-  open?: number;
-  openTime?: null;
-  close?: null;
-  closeTime?: null;
-  high?: number;
-  low?: number;
-  latestPrice?: number;
-  latestSource?: string;
-  latestTime?: string;
-  latestUpdate?: number;
-  latestVolume?: null;
-  iexRealtimePrice?: number;
-  iexRealtimeSize?: number;
-  iexLastUpdated?: number;
-  delayedPrice?: null;
-  delayedPriceTime?: null;
-  extendedPrice?: null;
-  extendedChange?: null;
-  extendedChangePercent?: null;
-  extendedPriceTime?: null;
-  previousClose?: number;
-  previousVolume?: number;
-  change?: number;
-  changePercent?: number;
-  volume?: null;
-  iexMarketPercent?: number;
-  iexVolume?: number;
-  avgTotalVolume?: number;
-  iexBidPrice?: number;
-  iexBidSize?: number;
-  iexAskPrice?: number;
-  iexAskSize?: number;
-  marketCap?: number;
-  peRatio?: number;
-  week52High?: number;
-  week52Low?: number;
-  ytdChange?: number;
-  lastTradeTime?: number;
-  isUSMarketOpen?: boolean;
+  c: number;
+  h: number;
+  l: number;
+  o: number;
+  pc: number;
+  t: number;
+}
+
+export interface IMargin {
+  metric: {
+    'freeOperatingCashFlow/revenue5Y': number;
+    'freeOperatingCashFlow/revenueTTM': number;
+    grossMargin5Y: number;
+    grossMarginAnnual: number;
+    grossMarginTTM: number;
+    'netProfitMargin%Annual': number;
+    netProfitMargin5Y: number;
+    netProfitMarginTTM: number;
+    operatingMargin5Y: number;
+    operatingMarginAnnual: number;
+    operatingMarginTTM: number;
+    pretaxMargin5Y: number;
+    pretaxMarginAnnual: number;
+    pretaxMarginTTM: number;
+  };
+}
+
+export interface ICompany {
+  country: string;
+  currency: string;
+  exchange: string;
+  ipo: string;
+  marketCapitalization: number;
+  name: string;
+  phone: string;
+  shareOutstanding: number;
+  ticker: string;
+  weburl: string;
+  logo: string;
+  finnhubIndustry: string;
 }
 
 export type TAPI = {
   quotes: {
     getQuote: (name: string) => Promise<IQuoteResponse>;
+  };
+  metrics: {
+    getMargin: (name: string) => Promise<IMargin>;
+  };
+  company: {
+    getProfile: (name: string) => Promise<ICompany>;
   };
 };

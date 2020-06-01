@@ -1,38 +1,25 @@
 import React from 'react';
-import QuotesContainer from './containers/QuotesContainer';
-import MenuContainer from './containers/MenuContainer';
-import { MainMenu } from './components/Molecules/MainMenu';
-import { CardsList } from './components/Molecules/CardsList';
-import { MainLayout } from './components/Layouts/Main';
-import { RouterContainer } from './containers/RouterContainer';
-import 'antd/dist/antd.css';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-interface IStock {
-  id: string;
-}
+import 'antd/dist/antd.css';
+import { AsyncComponent } from './containers/AsyncComponent';
+import { routes } from './pages';
 
 const App: React.FC = () => (
   <div className="main">
-    <MainLayout
-      header={() => <MenuContainer component={MainMenu} />}
-      body={() => (
-        <>
-          <RouterContainer
-            path="/"
-            render={() => <QuotesContainer component={CardsList} />}
-          />
-          <RouterContainer<IStock>
-            path="/stock/:id"
-            render={({ id }) => <>stock: {id}</>}
-          />
-          // /news // /news/123123
-          <RouterContainer
-            path="/news/:id?"
-            render={({ id }) => <> {id ? `News: ${id}` : `News not found`} </>}
-          />
-        </>
-      )}
-    />
+    <Switch>
+      {routes.map(({ path, component }) => (
+        <Route
+          exact
+          path={path}
+          // @ts-ignore
+          render={(props) => (
+            <AsyncComponent component={component} {...props.match.params} />
+          )}
+        />
+      ))}
+      <Redirect to="/" />
+    </Switch>
   </div>
 );
 
