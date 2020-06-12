@@ -15,7 +15,8 @@
     "noEmit": true,
     "jsx": "react",
     "experimentalDecorators": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "typeRoots": ["./src/configs/theme"]
   },
   "include": ["src"]
 }

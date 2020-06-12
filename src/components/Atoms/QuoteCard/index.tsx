@@ -4,28 +4,20 @@ import { Card, Skeleton } from 'antd';
 export type IProps = {
   symbol: string;
   margin: number;
-  volume: number;
-  change: number;
-  changePercent: number;
+  high: number;
+  low: number;
 };
 
-export const QuoteCard: React.FC<IProps> = ({
-  symbol,
-  margin,
-  volume,
-  change,
-  changePercent,
-}) => (
+export const QuoteCard: React.FC<IProps> = ({ symbol, margin, high, low }) => (
   <Card
     title={symbol}
     style={{ width: '400px', height: '100%', borderRadius: '10px' }}
   >
-    {changePercent ? (
+    {margin ? (
       <>
         <p>Margin: {margin}</p>
-        <p>Volume: {volume}</p>
-        <p>Change: {change}</p>
-        <p>Change Percent: {changePercent}</p>
+        <p>High: {high}</p>
+        <p>Low: {low}</p>
       </>
     ) : (
       <Skeleton active />

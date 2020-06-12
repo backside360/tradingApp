@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 
-import { ButtonStyled } from '../components/Atoms/Button';
+import { Button } from '../UI/basic/Button';
 
 import { MainLayout } from '../components/Layouts/Main';
 import MenuContainer from '../containers/MenuContainer';
@@ -39,13 +39,12 @@ const Create = () => {
     setVisible(false);
   }, []);
 
-  const theme = {
-    main: '#000',
-  };
-
   return (
     <>
-      <ButtonStyled onClick={handleClick}>ADD</ButtonStyled>
+      <Button type="primary" text="Add" onClick={handleClick} />
+      <Button text="Add" />
+      <Button type="danger" text="Add" spacing="compact" />
+      <Button type="warning" text="Add" />
 
       {visible && (
         <AsyncComponent

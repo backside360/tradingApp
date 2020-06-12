@@ -13,8 +13,8 @@ const App: React.FC = () => (
           exact
           path={path}
           // @ts-ignore
-          render={(props) => (
-            <AsyncComponent component={component} {...props.match.params} />
+          render={(route) => (
+            <AsyncComponent component={component} {...route.match.params} />
           )}
         />
       ))}

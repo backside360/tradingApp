@@ -12,17 +12,15 @@ interface TProps {
 
 type TState = {
   margin: number | null;
-  volume: number | null;
-  change: number | null;
-  percent: number | null;
+  high: number | null;
+  low: number | null;
 };
 
 const QuoteInfo: React.FC<TProps> = (props) => {
   const [quote, setQuote] = useState<TState>({
     margin: null,
-    volume: null,
-    change: null,
-    percent: null,
+    high: null,
+    low: null,
   });
 
   const { api } = useInjection();
@@ -34,23 +32,21 @@ const QuoteInfo: React.FC<TProps> = (props) => {
     ]).then(([margin, apiQoute]) => {
       setQuote({
         margin: margin.metric.grossMarginAnnual,
-        volume: apiQoute.volume || apiQoute.previousVolume,
-        change: apiQoute.change,
-        percent: apiQoute.changePercent,
+        high: apiQoute.h,
+        low: apiQoute.l,
       });
     });
   }, []);
 
   const Card = () =>
-    !quote.volume || !quote.margin || !quote.percent || !quote.change ? (
+    !quote.margin || !quote.high || !quote.low ? (
       <>'Loading'</>
     ) : (
       <QuoteCard
         symbol={props.id}
         margin={quote.margin}
-        volume={quote.volume}
-        change={quote.change}
-        changePercent={quote.percent}
+        high={quote.high}
+        low={quote.low}
       />
     );
 
