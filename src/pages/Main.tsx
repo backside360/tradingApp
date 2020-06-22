@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+// import { Button } from 'antd';
 
 import { Button } from '../UI/basic/Button';
+import { Icon } from '../UI/basic/Icons';
 
 import { MainLayout } from '../components/Layouts/Main';
 import MenuContainer from '../containers/MenuContainer';
@@ -17,34 +19,42 @@ const AddStock = React.lazy(() => import('../modules/modals/AddStock'));
 // path: /?modal=addStock
 // { modal: ['addStock', 'changeStock'] }
 const Create = () => {
-  const { search, pathname } = useLocation();
-  const { push, goBack } = useHistory();
+  const { search } = useLocation();
+  const [loading, setLoading] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
 
   const params = new URLSearchParams(search);
 
   useEffect(() => {
     if (params.get('modal') === 'addStock') {
-      setVisible(true);
+      // setVisible(true);
     }
-  }, []);
+  }, []); // eslint-disable-line
 
   const handleClick = useCallback(() => {
     setVisible(true);
-    push(`${pathname}?modal=addStock`);
+
+    // push(`${pathname}?modal=addStock`);
   }, []);
 
   const handleSuccess = useCallback(() => {
-    goBack();
+    // goBack();
     setVisible(false);
   }, []);
 
   return (
     <>
-      <Button type="primary" text="Add" onClick={handleClick} />
+      {/* <Button onClick={handleClick}>Add</Button> */}
+      <Button
+        type="primary"
+        text="Add"
+        onClick={handleClick}
+        loading={loading}
+      />
       <Button text="Add" />
       <Button type="danger" text="Add" spacing="compact" />
       <Button type="warning" text="Add" />
+      <Icon />
 
       {visible && (
         <AsyncComponent

@@ -6,5 +6,6 @@ module.exports = {
     '@storybook/addon-links',
     'storybook-addon-styled-component-theme/dist/register',
     '@storybook/addon-knobs/register',
+    '@storybook/addon-actions/register',
   ],
 };
