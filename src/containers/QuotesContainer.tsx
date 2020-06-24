@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { useInjection } from '../services/Injection';
+import { useHistory } from 'react-router-dom';
+
+import { api } from '../services/api';
 import { mapQuotesFromApiToStore } from '../entities/quotes/mapping';
 import { IQuote } from '../entities/quotes/types';
-import { useHistory } from 'react-router-dom';
+import { Quotes } from '../entities/quotes';
 
 interface IList {
   quotes: Array<IQuote>;
@@ -15,10 +17,6 @@ interface IProps {
 
 const QuotesContainer: React.FC<IProps> = ({ component: List }) => {
   const [loading, setLoading] = useState(true);
-  const {
-    api,
-    store: { Quotes },
-  } = useInjection();
   const history = useHistory();
 
   React.useEffect(() => {

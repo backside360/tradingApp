@@ -12,3 +12,5 @@ export class Menu {
     this.items[menuId] = { ...this.items[menuId], ...item };
   };
 }
+
+export default new Menu();

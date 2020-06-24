@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useInjection } from '../services/Injection';
+import { match as IMatch } from 'react-router-dom';
+
 import { QuoteCard } from '../components/Atoms/QuoteCard';
 import { MainLayout } from '../components/Layouts/Main';
 import MenuContainer from '../containers/MenuContainer';
 import { MainMenu } from '../components/Molecules/MainMenu';
+import { api } from '../services/api';
 
 interface TProps {
   component: React.ElementType<any>;
-  id: string;
+  match: IMatch<{ id: string }>
 }
 
 type TState = {
@@ -23,12 +25,10 @@ const QuoteInfo: React.FC<TProps> = (props) => {
     low: null,
   });
 
-  const { api } = useInjection();
-
   useEffect(() => {
     Promise.all([
-      api.metrics.getMargin(props.id),
-      api.quotes.getQuote(props.id),
+      api.metrics.getMargin(props.match.params.id),
+      api.quotes.getQuote(props.match.params.id),
     ]).then(([margin, apiQoute]) => {
       setQuote({
         margin: margin.metric.grossMarginAnnual,
@@ -36,14 +36,14 @@ const QuoteInfo: React.FC<TProps> = (props) => {
         low: apiQoute.l,
       });
     });
-  }, []);
+  }, []); // eslint-disable-line
 
   const Card = () =>
     !quote.margin || !quote.high || !quote.low ? (
       <>'Loading'</>
     ) : (
       <QuoteCard
-        symbol={props.id}
+        symbol={props.match.params.id}
         margin={quote.margin}
         high={quote.high}
         low={quote.low}

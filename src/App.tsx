@@ -1,26 +1,17 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 import 'antd/dist/antd.css';
-import { AsyncComponent } from './containers/AsyncComponent';
-import { routes } from './pages';
+
+import { theme } from './configs/theme';
+import { Routes } from './pages';
 
 const App: React.FC = () => (
-  <div className="main">
-    <Switch>
-      {routes.map(({ path, component }) => (
-        <Route
-          exact
-          path={path}
-          // @ts-ignore
-          render={(route) => (
-            <AsyncComponent component={component} {...route.match.params} />
-          )}
-        />
-      ))}
-      <Redirect to="/" />
-    </Switch>
-  </div>
+  <Router>
+    <ThemeProvider theme={theme}>
+      <Routes />
+    </ThemeProvider>
+  </Router>
 );
 
 export default App;

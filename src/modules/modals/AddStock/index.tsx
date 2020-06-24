@@ -1,7 +1,8 @@
 import React from 'react';
 import { Modal, Input, message } from 'antd';
-import { useInjection } from '../../../services/Injection';
+import { api } from '../../../services/api';
 import { mapQuotesFromApiToStore } from '../../../entities/quotes/mapping';
+import { Quotes } from '../../../entities/quotes';
 
 type TProps = {
   visible: boolean;
@@ -18,10 +19,6 @@ export const AddStock: React.FC<TProps> = ({
   onSuccess,
   onCancel,
 }) => {
-  const {
-    api,
-    store: { Quotes },
-  } = useInjection();
   const [text, setText] = React.useState('');
 
   const handleSuccess = React.useCallback(() => {
@@ -30,11 +27,10 @@ export const AddStock: React.FC<TProps> = ({
     } else {
       api.company
         .getProfile(text)
-        //@ts-ignore
         .then((company) => Quotes.push(...mapQuotesFromApiToStore([company])))
         .then(() => onSuccess(text));
     }
-  }, [onSuccess, text, api, Quotes]);
+  }, [onSuccess, text]);
 
   return (
     <Modal

@@ -40,15 +40,3 @@ export interface ICompany {
   logo: string;
   finnhubIndustry: string;
 }
-
-export type TAPI = {
-  quotes: {
-    getQuote: (name: string) => Promise<IQuoteResponse>;
-  };
-  metrics: {
-    getMargin: (name: string) => Promise<IMargin>;
-  };
-  company: {
-    getProfile: (name: string) => Promise<ICompany>;
-  };
-};

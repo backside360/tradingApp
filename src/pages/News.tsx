@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useInjection } from '../services/Injection';
+import React from 'react';
 import MenuContainer from '../containers/MenuContainer';
 import { MainMenu } from '../components/Molecules/MainMenu';
 import { MainLayout } from '../components/Layouts/Main';
@@ -10,7 +9,6 @@ interface TProps {
 }
 
 const News: React.FC<TProps> = (props) => {
-  const { api } = useInjection();
 
   const NewsCard = () => <h1>News</h1>;
 

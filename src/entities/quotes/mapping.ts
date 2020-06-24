@@ -1,5 +1,5 @@
 import { IQuote } from '../../entities/quotes/types';
-import { IQuoteResponse, ICompany } from '../../api/types';
+import { ICompany } from '../../services/api/types';
 
 export const mapQuotesFromApiToStore = (
   companies: Array<ICompany>

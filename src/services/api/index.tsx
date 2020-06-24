@@ -1,35 +1,31 @@
 import axios from 'axios';
-import { TAPI } from './types';
+import { IQuoteResponse, IMargin, ICompany } from './types';
 
-const tokenIex = 'sk_23710eca08ee41f89b91b025174949ad';
 const finHubToken = 'bqmnedvrh5re7283ffp0';
-const baseUrl = 'https://cloud.iexapis.com/stable';
 const finHubUrl = 'https://finnhub.io/api/v1/';
 
-const api: TAPI = {
+export const api = {
   quotes: {
-    getQuote(name) {
+    getQuote(name: string) {
       return axios
-        .get(`${finHubUrl}/quote?symbol=${name}&token=${finHubToken}`)
+        .get<IQuoteResponse>(`${finHubUrl}/quote?symbol=${name}&token=${finHubToken}`)
         .then((res) => res.data);
     },
   },
   metrics: {
-    getMargin(name) {
+    getMargin(name: string) {
       return axios
-        .get(
+        .get<IMargin>(
           `${finHubUrl}/stock/metric?symbol=${name}&metric=margin&token=${finHubToken}`
         )
         .then((res) => res.data);
     },
   },
   company: {
-    getProfile(name) {
+    getProfile(name: string) {
       return axios
-        .get(`${finHubUrl}/stock/profile2?symbol=${name}&token=${finHubToken}`)
+        .get<ICompany>(`${finHubUrl}/stock/profile2?symbol=${name}&token=${finHubToken}`)
         .then((res) => res.data);
     },
   },
 };
-
-export default api;

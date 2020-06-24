@@ -1,7 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { useInjection } from '../services/Injection';
 import { useHistory, useRouteMatch } from 'react-router-dom';
+
+import Menu from '../entities/menu';
 
 interface IProps {
   component: React.ElementType;
@@ -12,10 +13,6 @@ type IMatch = {
 };
 
 const MenuContainer: React.FC<IProps> = ({ component: MenuComponent }) => {
-  const {
-    store: { Menu },
-  } = useInjection();
-
   const history = useHistory();
   const match = useRouteMatch<IMatch>('/:menuId');
 
@@ -41,7 +38,7 @@ const MenuContainer: React.FC<IProps> = ({ component: MenuComponent }) => {
     (menuId) => {
       history.push(`/${Menu.items[menuId].routerId}`);
     },
-    [Menu, history]
+    [history]
   );
 
   const selectedMenuId = Object.values(Menu.items).find(
