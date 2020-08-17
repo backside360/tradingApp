@@ -39,6 +39,8 @@ export const Standart_Input = () => {
       label="Поле ввода"
       icon={AddCircle}
       onIconClick={action('click')}
+      required={boolean('Required', false)}
+      error={text('Error', '')}
     />
   );
 };

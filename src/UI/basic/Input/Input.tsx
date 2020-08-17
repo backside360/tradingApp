@@ -59,12 +59,21 @@ const InputWrapper = styled.div<any>`
     p.readOnly
       ? css`
           background: ${p.theme.colors.N10};
-          border: 1px solid ${p.theme.colors.N30};
+          border: 2px solid ${p.theme.colors.N30};
+        `
+      : null};
+
+  ${(p) =>
+    p.error
+      ? css`
+          border: 2px solid ${p.theme.colors.R300};
         `
       : null};
 `;
 
-// <Input icon={AddCircle} onIconClick={() => setValue('')} />
+const RequiredLabel = styled.span`
+  color: ${(p) => p.theme.colors.R500};
+`;
 
 export const Input: React.FC<IProps> = ({
   disabled,
@@ -82,14 +91,17 @@ export const Input: React.FC<IProps> = ({
   label,
   icon: Icon,
   tabIndex = 0,
+  error,
 }) =>
   visible ? (
     <label>
-      <H5>{label}</H5>
-      <InputWrapper disabled={disabled}>
+      <H5>
+        {label}
+        {required ? <RequiredLabel>*</RequiredLabel> : null}
+      </H5>
+      <InputWrapper disabled={disabled} compact={compact} error={error}>
         <StyledInput
           type="text"
-          compact={compact}
           disabled={disabled}
           value={value}
           onChange={onChange}
