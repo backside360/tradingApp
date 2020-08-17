@@ -9,7 +9,7 @@ import { api } from '../services/api';
 
 interface TProps {
   component: React.ElementType<any>;
-  match: IMatch<{ id: string }>
+  match: IMatch<{ id: string }>;
 }
 
 type TState = {

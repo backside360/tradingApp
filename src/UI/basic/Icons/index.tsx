@@ -1,7 +1,12 @@
-import React from 'react';
-
-import { AddCircle } from './AddCircle';
-
-export const Icon: React.FC = () => {
-  return <AddCircle />;
-};
+export { AddCircle } from './components/AddCircle';
+export { ArrowDown } from './components/ArrowDown';
+export { ArrowUp } from './components/ArrowUp';
+export { ArrowLeft } from './components/ArrowLeft';
+export { ArrowRight } from './components/ArrowRight';
+export { Question } from './components/Question';
+export { Radio } from './components/Radio';
+export { Search } from './components/Search';
+export { Star } from './components/Star';
+export { Trash } from './components/Trash';
+export { Check } from './components/Check';
+export { Loading } from './components/Loading';

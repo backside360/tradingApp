@@ -21,12 +21,19 @@ declare module 'styled-components' {
       G500: '#006644';
       D500: '#dddddd';
       N600: '#A5ADBA';
+      B500: '#0747A6';
+      N40: '#DFE1E6';
+      N30: '#EBECF0';
+      N10: '#FAFBFC';
+      N80: '#97A0AF';
+      N900: '#091E42';
+      R500: '#BF2600';
     };
-    icons: {};
     elevation: {};
     typography: {
       font: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`;
+      monoFont: `SFMono-Medium, SF Mono, Segoe UI Mono, Roboto Mono, Ubuntu Mono, Menlo, Consolas, Courier, monospace`;
     };
   }
 }

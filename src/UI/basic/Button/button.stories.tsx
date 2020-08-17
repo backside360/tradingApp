@@ -16,7 +16,7 @@ export default {
   decorators: [withKnobs, themeDecorator],
 };
 
-const Types: IType[] = ['primary', 'default', 'warning', 'danger'];
+const Types: IType[] = ['primary', 'default', 'warning', 'danger', 'link'];
 const Spacing: ISpacing[] = ['default', 'compact'];
 
 export const Standart_Button = () => (
