@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { DefaultTheme, css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { TIcon } from '../Icons/types';
 import { H5 } from '../Typography/index';
 
@@ -31,6 +31,7 @@ const StyledInput = styled.input<any>`
   background: none;
   outline: none;
   font-size: 14px;
+  cursor: inherit;
 `;
 
 const InputWrapper = styled.div<any>`
@@ -41,9 +42,11 @@ const InputWrapper = styled.div<any>`
   padding: 6px;
   display: flex;
   align-items: center;
+  cursor: text;
+  transition: border 0.3s ease;
   &:hover {
     border: 2px solid
-      ${(p) => (p.disabled ? p.theme.colors.N30 : p.theme.colors.B400)};
+      ${(p) => (p.disabled ? p.theme.colors.N30 : p.focused ? p.theme.colors.B400 : p.theme.colors.B300)};
   }
 
   ${(p) =>
@@ -69,6 +72,12 @@ const InputWrapper = styled.div<any>`
           border: 2px solid ${p.theme.colors.R300};
         `
       : null};
+  
+  ${(p) =>
+    p.focused
+      ? css`
+        border: 2px solid ${p.theme.colors.B400};
+      ` : null};
 `;
 
 const RequiredLabel = styled.span`
@@ -92,21 +101,33 @@ export const Input: React.FC<IProps> = ({
   icon: Icon,
   tabIndex = 0,
   error,
-}) =>
-  visible ? (
+}) => {
+  const [focused, setFocused] = React.useState<boolean>(autoFocus || false);
+
+  const handleFocus = (e: React.MouseEvent<HTMLElement>) => {
+    setFocused(true);
+    onFocus && onFocus(e);
+  };
+
+  const handleBlur = (e: React.MouseEvent<HTMLElement>) => {
+    setFocused(false);
+    onBlur && onBlur(e);
+  };
+
+  return visible ? (
     <label>
       <H5>
         {label}
         {required ? <RequiredLabel>*</RequiredLabel> : null}
       </H5>
-      <InputWrapper disabled={disabled} compact={compact} error={error}>
+      <InputWrapper disabled={disabled} compact={compact} error={error} focused={focused}>
         <StyledInput
           type="text"
           disabled={disabled}
           value={value}
           onChange={onChange}
-          onBlur={onBlur}
-          onFocus={onFocus}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
           autoFocus={autoFocus}
           readOnly={readOnly}
           placeholder={placeholder}
@@ -123,3 +144,4 @@ export const Input: React.FC<IProps> = ({
       </InputWrapper>
     </label>
   ) : null;
+}
