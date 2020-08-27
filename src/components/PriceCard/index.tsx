@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 
-import { Card, AutoComplete, Input, Row, Col, Icon, Modal, Button } from 'antd';
+import { Card, AutoComplete, Input, Icon, Modal, Button } from 'antd';
 import { toJS } from 'mobx';
 import { Spin } from 'antd';
 import { observer } from 'mobx-react';
-import { Animated } from 'react-animated-css';
+
 import './styles.css';
 import 'antd/dist/antd.css';
 import MontlyCard from '../MothlyCard/index';
@@ -16,11 +16,11 @@ const { Option } = AutoComplete;
 
 const { Meta } = Card;
 
-const PriceCard = observer(props => {
+const PriceCard = observer((props) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [toggle, setToggle] = useState<boolean>(false);
   const {
-    store: { QuoteStore }
+    store: { QuoteStore },
   } = useInjection();
   const { loading } = props;
 
@@ -31,13 +31,7 @@ const PriceCard = observer(props => {
   return (
     <>
       {Object.keys(toJS(QuoteStore.quoteStore)).length === 0 ? null : (
-        <Animated
-          animationIn="bounceInUp"
-          animationOut="zoomOutDown"
-          animationInDuration={1000}
-          animationOutDuration={1000}
-          isVisible={true}
-        >
+        <div className="price_card">
           <Card
             title={QuoteStore.quoteStore.companyName}
             hoverable
@@ -53,35 +47,23 @@ const PriceCard = observer(props => {
                   Latest Price: {QuoteStore.quoteStore.latestPrice}
                   {Object.keys(toJS(QuoteStore.quoteStore)).length ===
                   0 ? null : QuoteStore.getPreviousDay ? (
-                    <Animated
-                      animationIn="bounce"
-                      animationOut="zoomOutDown"
-                      animationInDuration={3000}
-                      animationOutDuration={3000}
-                      isVisible={true}
-                    >
+                    <div className="bounce_top">
                       <Icon
                         type="down-circle"
                         theme="twoTone"
                         twoToneColor="red"
                         style={{ fontSize: '20px', paddingLeft: '150px' }}
                       />
-                    </Animated>
+                    </div>
                   ) : (
-                    <Animated
-                      animationIn="bounce"
-                      animationOut="zoomOutDown"
-                      animationInDuration={3000}
-                      animationOutDuration={3000}
-                      isVisible={true}
-                    >
+                    <div className="bounce_bottom">
                       <Icon
                         type="up-circle"
                         theme="twoTone"
                         twoToneColor="green"
                         style={{ fontSize: '20px', paddingLeft: '150px' }}
                       />
-                    </Animated>
+                    </div>
                   )}
                 </p>
               </>
@@ -103,7 +85,7 @@ const PriceCard = observer(props => {
               )}
             </Modal>
           </Card>
-        </Animated>
+        </div>
       )}
     </>
   );

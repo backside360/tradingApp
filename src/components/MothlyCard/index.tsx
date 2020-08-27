@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
-import { Card, AutoComplete, Input, Row, Col, Icon, Button } from 'antd';
+import { Card, Button } from 'antd';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import { Animated } from 'react-animated-css';
 
 import './style.css';
 import 'antd/dist/antd.css';
@@ -15,22 +14,23 @@ const { MonthPicker, RangePicker } = DatePicker;
 
 const dateFormat = 'YYYY-MM-DD';
 
-const MontlyCard = observer(props => {
+const MontlyCard = observer((props) => {
   const { handleToggle } = props;
   const {
-    store: { QuoteStore }
+    store: { QuoteStore },
   } = useInjection();
   const [date, setDate] = useState<string>();
 
   /** Что из себя представляет Moment? */
   const disabled = (current: any) => {
-    console.log(current);
+    const dates =
+      QuoteStore.monthlyPriceStore && Object.keys(QuoteStore.monthlyPriceStore);
 
-    const dates = Object.keys(QuoteStore.monthlyPriceStore);
     if (
       current &&
+      dates &&
       dates.some(
-        row =>
+        (row) =>
           moment(row).format('YYYY-MM-DD') ===
           moment(current._d).format('YYYY-MM-DD')
       )
@@ -58,8 +58,6 @@ const MontlyCard = observer(props => {
           hoverable
         >
           {date && ['2. high'] ? (
-            /** что здесь творится, помогите */
-
             //@ts-ignore
 
             <p>{QuoteStore.monthlyPriceStore[date]['2. high']}</p>
