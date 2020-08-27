@@ -9,7 +9,7 @@ type IProps = {
   onClick?: React.MouseEventHandler<HTMLElement>;
   label: string;
   checked: boolean;
-  error?: string;
+  error?: boolean;
   required?: boolean;
   tabIndex?: number;
 };
@@ -23,7 +23,7 @@ const LabelWraper = styled.div`
 const StyledCheckbox = styled.div<{
   disabled: boolean;
   checked: boolean;
-  error?: string;
+  error?: boolean;
 }>`
   box-sizing: border-box;
   margin: 6px;
@@ -40,7 +40,7 @@ const StyledCheckbox = styled.div<{
       getBorderColor(p.theme, {
         disabled: p.disabled,
         checked: p.checked,
-        error: p.error || '',
+        error: p.error ?? false,
       })};
   padding: 0;
   transition: all 0.2s ease-in-out 0s;
@@ -51,7 +51,7 @@ const StyledCheckbox = styled.div<{
 const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })<{
   disabled: boolean;
   checked: boolean;
-  error?: string;
+  error?: boolean;
   hover?: boolean;
 }>`
   position: absolute;
@@ -63,7 +63,7 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })<{
         getBorderColor(p.theme, {
           disabled: p.disabled,
           checked: p.checked,
-          error: p.error || '',
+          error: p.error ?? false,
           hover: true,
         })};
   }
@@ -72,7 +72,7 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })<{
 const StyledLabel = styled.label<{
   disabled: boolean;
   checked: boolean;
-  error?: string;
+  error?: boolean;
   hover?: boolean;
 }>`
   width: 100%;
@@ -83,7 +83,7 @@ const StyledLabel = styled.label<{
         getBorderColor(p.theme, {
           disabled: p.disabled,
           checked: p.checked,
-          error: p.error || '',
+          error: p.error ?? false,
           hover: true,
         })};
   }

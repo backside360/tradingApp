@@ -26,7 +26,7 @@ export const Standart_Checkbox = () => {
         action('check');
       }}
       disabled={boolean('Disabled', false)}
-      error={text('Error', 'налажал')}
+      error={boolean('Error', false)}
       label={text('Label', 'Checkbox')}
       visible={boolean('Visible', true)}
       required={boolean('Required', false)}

@@ -19,7 +19,12 @@ export const getBackgroundColor = (
 
 export const getBorderColor = (
   theme: DefaultTheme,
-  state: { disabled: boolean; checked: boolean; hover?: boolean; error: string }
+  state: {
+    disabled: boolean;
+    checked: boolean;
+    hover?: boolean;
+    error: boolean;
+  }
 ): ValueOf<DefaultTheme['colors']> => {
   if (state.disabled || (state.hover && state.disabled)) {
     return theme.colors.N20;

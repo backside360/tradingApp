@@ -12,7 +12,7 @@ type IProps = {
   onBlur?: React.MouseEventHandler<HTMLElement>;
   onIconClick?: React.MouseEventHandler<SVGSVGElement>;
   value: string;
-  error?: string;
+  error?: boolean;
   label?: string;
   autoFocus?: boolean;
   readOnly?: boolean;
@@ -46,7 +46,12 @@ const InputWrapper = styled.div<any>`
   transition: border 0.3s ease;
   &:hover {
     border: 2px solid
-      ${(p) => (p.disabled ? p.theme.colors.N30 : p.focused ? p.theme.colors.B400 : p.theme.colors.B300)};
+      ${(p) =>
+        p.disabled
+          ? p.theme.colors.N30
+          : p.focused
+          ? p.theme.colors.B400
+          : p.theme.colors.B300};
   }
 
   ${(p) =>
@@ -72,12 +77,13 @@ const InputWrapper = styled.div<any>`
           border: 2px solid ${p.theme.colors.R300};
         `
       : null};
-  
+
   ${(p) =>
     p.focused
       ? css`
-        border: 2px solid ${p.theme.colors.B400};
-      ` : null};
+          border: 2px solid ${p.theme.colors.B400};
+        `
+      : null};
 `;
 
 const RequiredLabel = styled.span`
@@ -120,7 +126,12 @@ export const Input: React.FC<IProps> = ({
         {label}
         {required ? <RequiredLabel>*</RequiredLabel> : null}
       </H5>
-      <InputWrapper disabled={disabled} compact={compact} error={error} focused={focused}>
+      <InputWrapper
+        disabled={disabled}
+        compact={compact}
+        error={error}
+        focused={focused}
+      >
         <StyledInput
           type="text"
           disabled={disabled}
@@ -144,4 +155,4 @@ export const Input: React.FC<IProps> = ({
       </InputWrapper>
     </label>
   ) : null;
-}
+};
