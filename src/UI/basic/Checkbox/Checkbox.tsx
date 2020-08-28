@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { DefaultTheme, useTheme } from 'styled-components';
+import styled from 'styled-components';
 import { Check } from '../Icons/index';
 import { getBackgroundColor, getBorderColor } from './utils/getColor';
 
@@ -25,6 +25,7 @@ const StyledCheckbox = styled.div<{
   checked: boolean;
   error?: boolean;
 }>`
+  position: relative;
   box-sizing: border-box;
   margin: 6px;
   display: flex;
@@ -46,6 +47,13 @@ const StyledCheckbox = styled.div<{
   transition: all 0.2s ease-in-out 0s;
   height: 12px;
   width: 12px;
+`;
+
+const IconWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })<{
@@ -121,7 +129,9 @@ export const Checkbox: React.FC<IProps> = ({
       <LabelWraper>
         <StyledCheckbox checked={checked} error={error} disabled={disabled}>
           {checked ? (
-            <Check size="small" color={disabled ? 'N600' : 'W700'} />
+            <IconWrapper>
+              <Check size="small" color={disabled ? 'N600' : 'W700'} />
+            </IconWrapper>
           ) : null}
         </StyledCheckbox>
         <Label disabled={disabled}>
